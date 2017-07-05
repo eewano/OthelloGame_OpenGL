@@ -1,0 +1,322 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		100657851F03539B00095F16 /* Score.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 100657831F03539B00095F16 /* Score.cpp */; };
+		10DA83151F022E0800912206 /* Panel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10DA83131F022E0800912206 /* Panel.cpp */; };
+		10DA83181F02512D00912206 /* Text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10DA83161F02512D00912206 /* Text.cpp */; };
+		10E229421EFF8DAD00E223BB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10E229411EFF8DAD00E223BB /* main.cpp */; };
+		10E2294A1EFF8DC100E223BB /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E229491EFF8DC100E223BB /* OpenGL.framework */; };
+		10E2294C1EFF8DC800E223BB /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E2294B1EFF8DC800E223BB /* IOKit.framework */; };
+		10E2294E1EFF8DDD00E223BB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E2294D1EFF8DDD00E223BB /* Cocoa.framework */; };
+		10E229501EFF8DE400E223BB /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E2294F1EFF8DE400E223BB /* CoreVideo.framework */; };
+		10E229521EFF8DF900E223BB /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E229511EFF8DF900E223BB /* libglfw3.a */; };
+		10E229541EFF8E0300E223BB /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E229531EFF8E0300E223BB /* libGLEW.a */; };
+		10E229591EFF943500E223BB /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10E229571EFF943500E223BB /* Shader.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		10E2293C1EFF8DAD00E223BB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		100657831F03539B00095F16 /* Score.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Score.cpp; sourceTree = "<group>"; };
+		100657841F03539B00095F16 /* Score.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Score.hpp; sourceTree = "<group>"; };
+		10DA83131F022E0800912206 /* Panel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Panel.cpp; sourceTree = "<group>"; };
+		10DA83141F022E0800912206 /* Panel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Panel.hpp; sourceTree = "<group>"; };
+		10DA83161F02512D00912206 /* Text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Text.cpp; sourceTree = "<group>"; };
+		10DA83171F02512D00912206 /* Text.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Text.hpp; sourceTree = "<group>"; };
+		10E2293E1EFF8DAD00E223BB /* Othello */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Othello; sourceTree = BUILT_PRODUCTS_DIR; };
+		10E229411EFF8DAD00E223BB /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		10E229491EFF8DC100E223BB /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		10E2294B1EFF8DC800E223BB /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		10E2294D1EFF8DDD00E223BB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		10E2294F1EFF8DE400E223BB /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		10E229511EFF8DF900E223BB /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ../../../../usr/local/lib/libglfw3.a; sourceTree = "<group>"; };
+		10E229531EFF8E0300E223BB /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = ../../../../usr/local/lib/libGLEW.a; sourceTree = "<group>"; };
+		10E229551EFF8F7100E223BB /* Define.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Define.hpp; sourceTree = "<group>"; };
+		10E229561EFF8F9600E223BB /* Vec2.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Vec2.hpp; sourceTree = "<group>"; };
+		10E229571EFF943500E223BB /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
+		10E229581EFF943500E223BB /* Shader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
+		10E2295A1EFF957100E223BB /* Sprite.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sprite.hpp; sourceTree = "<group>"; };
+		10E2295B1EFF96A100E223BB /* Loader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Loader.hpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		10E2293B1EFF8DAD00E223BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10E229541EFF8E0300E223BB /* libGLEW.a in Frameworks */,
+				10E229521EFF8DF900E223BB /* libglfw3.a in Frameworks */,
+				10E229501EFF8DE400E223BB /* CoreVideo.framework in Frameworks */,
+				10E2294E1EFF8DDD00E223BB /* Cocoa.framework in Frameworks */,
+				10E2294C1EFF8DC800E223BB /* IOKit.framework in Frameworks */,
+				10E2294A1EFF8DC100E223BB /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		10E229351EFF8DAD00E223BB = {
+			isa = PBXGroup;
+			children = (
+				10E229401EFF8DAD00E223BB /* Othello */,
+				10E2293F1EFF8DAD00E223BB /* Products */,
+				10E229481EFF8DC000E223BB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		10E2293F1EFF8DAD00E223BB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				10E2293E1EFF8DAD00E223BB /* Othello */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		10E229401EFF8DAD00E223BB /* Othello */ = {
+			isa = PBXGroup;
+			children = (
+				10E229411EFF8DAD00E223BB /* main.cpp */,
+				10E229551EFF8F7100E223BB /* Define.hpp */,
+				10E229561EFF8F9600E223BB /* Vec2.hpp */,
+				10E229571EFF943500E223BB /* Shader.cpp */,
+				10E229581EFF943500E223BB /* Shader.hpp */,
+				10E2295A1EFF957100E223BB /* Sprite.hpp */,
+				10E2295B1EFF96A100E223BB /* Loader.hpp */,
+				10DA83131F022E0800912206 /* Panel.cpp */,
+				10DA83141F022E0800912206 /* Panel.hpp */,
+				10DA83161F02512D00912206 /* Text.cpp */,
+				10DA83171F02512D00912206 /* Text.hpp */,
+				100657831F03539B00095F16 /* Score.cpp */,
+				100657841F03539B00095F16 /* Score.hpp */,
+			);
+			path = Othello;
+			sourceTree = "<group>";
+		};
+		10E229481EFF8DC000E223BB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				10E229531EFF8E0300E223BB /* libGLEW.a */,
+				10E229511EFF8DF900E223BB /* libglfw3.a */,
+				10E2294F1EFF8DE400E223BB /* CoreVideo.framework */,
+				10E2294D1EFF8DDD00E223BB /* Cocoa.framework */,
+				10E2294B1EFF8DC800E223BB /* IOKit.framework */,
+				10E229491EFF8DC100E223BB /* OpenGL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		10E2293D1EFF8DAD00E223BB /* Othello */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 10E229451EFF8DAD00E223BB /* Build configuration list for PBXNativeTarget "Othello" */;
+			buildPhases = (
+				10E2293A1EFF8DAD00E223BB /* Sources */,
+				10E2293B1EFF8DAD00E223BB /* Frameworks */,
+				10E2293C1EFF8DAD00E223BB /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Othello;
+			productName = Othello;
+			productReference = 10E2293E1EFF8DAD00E223BB /* Othello */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		10E229361EFF8DAD00E223BB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = eewano;
+				TargetAttributes = {
+					10E2293D1EFF8DAD00E223BB = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 10E229391EFF8DAD00E223BB /* Build configuration list for PBXProject "Othello" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 10E229351EFF8DAD00E223BB;
+			productRefGroup = 10E2293F1EFF8DAD00E223BB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				10E2293D1EFF8DAD00E223BB /* Othello */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		10E2293A1EFF8DAD00E223BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100657851F03539B00095F16 /* Score.cpp in Sources */,
+				10E229591EFF943500E223BB /* Shader.cpp in Sources */,
+				10E229421EFF8DAD00E223BB /* main.cpp in Sources */,
+				10DA83151F022E0800912206 /* Panel.cpp in Sources */,
+				10DA83181F02512D00912206 /* Text.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		10E229431EFF8DAD00E223BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		10E229441EFF8DAD00E223BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		10E229461EFF8DAD00E223BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				"HEADER_SEARCH_PATHS[arch=*]" = /usr/local/include;
+				"LIBRARY_SEARCH_PATHS[arch=*]" = /usr/local/lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		10E229471EFF8DAD00E223BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		10E229391EFF8DAD00E223BB /* Build configuration list for PBXProject "Othello" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10E229431EFF8DAD00E223BB /* Debug */,
+				10E229441EFF8DAD00E223BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		10E229451EFF8DAD00E223BB /* Build configuration list for PBXNativeTarget "Othello" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10E229461EFF8DAD00E223BB /* Debug */,
+				10E229471EFF8DAD00E223BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 10E229361EFF8DAD00E223BB /* Project object */;
+}
