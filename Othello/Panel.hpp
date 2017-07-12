@@ -10,7 +10,6 @@
 static constexpr int STONE_VERTS_COUNT = 4;
 static Vec2f STONE_SIZE = { 0.2f, 0.2f };
 
-//クラス名はより分かりやすくする:Panel or Text or ...
 class Panel : public Sprite<4>
 {
 public:

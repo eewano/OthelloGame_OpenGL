@@ -7,7 +7,7 @@
 #include "Vec2.hpp"
 
 static constexpr int SCORE_VERTS_COUNT = 4;
-static Vec2f SCORE_SIZE = {0.1f, 0.2f};
+static Vec2f SCORE_SIZE = { 0.1f, 0.2f };
 
 class Score : public Sprite<SCORE_VERTS_COUNT>
 {

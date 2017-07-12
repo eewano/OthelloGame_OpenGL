@@ -17,7 +17,6 @@ Shader::~Shader()
 void Shader::SetUp()
 {
     auto vShaderId = glCreateShader(GL_VERTEX_SHADER);
-    //vertexShader = vertex_shader_text
     std::string vertexShader = R"#(
     uniform mat4 MVP;
     attribute vec3 position;
@@ -33,7 +32,6 @@ void Shader::SetUp()
     glCompileShader(vShaderId);
     
     GLuint fShaderId = glCreateShader(GL_FRAGMENT_SHADER);
-    //fragmentShader = fragment_shader_text
     std::string fragmentShader = R"#(
     varying vec2 vuv;
     uniform sampler2D texture;

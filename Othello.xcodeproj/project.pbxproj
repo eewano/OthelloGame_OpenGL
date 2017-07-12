@@ -53,6 +53,7 @@
 		10E229581EFF943500E223BB /* Shader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
 		10E2295A1EFF957100E223BB /* Sprite.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sprite.hpp; sourceTree = "<group>"; };
 		10E2295B1EFF96A100E223BB /* Loader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Loader.hpp; sourceTree = "<group>"; };
+		10E22F101F1611D500EFFC28 /* Utility.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Utility.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,12 +94,13 @@
 			isa = PBXGroup;
 			children = (
 				10E229411EFF8DAD00E223BB /* main.cpp */,
-				10E229551EFF8F7100E223BB /* Define.hpp */,
-				10E229561EFF8F9600E223BB /* Vec2.hpp */,
 				10E229571EFF943500E223BB /* Shader.cpp */,
 				10E229581EFF943500E223BB /* Shader.hpp */,
 				10E2295A1EFF957100E223BB /* Sprite.hpp */,
 				10E2295B1EFF96A100E223BB /* Loader.hpp */,
+				10E229551EFF8F7100E223BB /* Define.hpp */,
+				10E22F101F1611D500EFFC28 /* Utility.hpp */,
+				10E229561EFF8F9600E223BB /* Vec2.hpp */,
 				10DA83131F022E0800912206 /* Panel.cpp */,
 				10DA83141F022E0800912206 /* Panel.hpp */,
 				10DA83161F02512D00912206 /* Text.cpp */,

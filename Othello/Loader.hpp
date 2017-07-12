@@ -28,7 +28,6 @@ GLuint LoadBmp(const char* filename)
         return 0;
     }
     
-    //dataPosでsizeの値(54 or 122等)を取得している
     int dataPos = *(int*)&(header[0x0A]);
     int imageSize = *(int*)&(header[0x22]);
     int width = *(int*)&(header[0x12]);

@@ -14,19 +14,19 @@
 #include "Panel.hpp"
 #include "Text.hpp"
 #include "Score.hpp"
+#include "Utility.hpp"
 
 int pointBlack = 0;
 int pointWhite = 0;
 int setCount = 0; //石を置いた数(最大64枚まで)
 bool isPassed = false; //パスの判定
+bool turnChanged = false;
 
 enum class Player
 {
     TURN_BLACK,
     TURN_WHITE
 };
-
-Player turn = Player::TURN_BLACK;
 
 double cposX, cposY; //マウスのカーソルの座標
 
@@ -37,8 +37,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 void EnableCheck(); //石を置けるかの判定と、ひっくり返す処理関数
 void Init();
 
-std::string GetCurrentWorkingDir(void);
-
+Player turn = Player::TURN_BLACK;
 Shader shader;
 
 std::unique_ptr<Panel> panel[BOARD_SIZE][BOARD_SIZE];
@@ -77,9 +76,11 @@ int main(int argc, const char * argv[]) {
     GLuint textBlackId = LoadBmp("Black.bmp");
     GLuint textWhiteId = LoadBmp("White.bmp");
     GLuint scoreId = LoadBmp("Numbers.bmp");
+    GLuint triangleId = LoadBmp("Triangle.bmp");
     
     auto textBlack = std::make_unique<Text>(TEXT_BLACK_SIZE, Vec2f{ -0.525f, 0.2f });
     auto textWhite = std::make_unique<Text>(TEXT_WHITE_SIZE, Vec2f{ 0.525f, 0.2f });
+    auto triangle = std::make_unique<Text>(TRIANGLE_SIZE, Vec2f{ 0.0f, 0.0f });
     auto scoreBlack01 = std::make_unique<Score>(SCORE_SIZE, Vec2f{ -0.475f, 0.05f });
     auto scoreBlack10 = std::make_unique<Score>(SCORE_SIZE, Vec2f{ -0.55f, 0.05f });
     auto scoreWhite01 = std::make_unique<Score>(SCORE_SIZE, Vec2f{ 0.575f, 0.05f });
@@ -94,8 +95,10 @@ int main(int argc, const char * argv[]) {
     }
     
     Init();
+    triangle->TurnChange(1);
     
-    while(!glfwWindowShouldClose(window))
+    while(glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
+          glfwWindowShouldClose(window) == 0)
     {
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -135,8 +138,24 @@ int main(int argc, const char * argv[]) {
         scoreWhite10->Update(pointWhite / 10);
         //--------------------スコアの反映--------------------
         
+        if(turnChanged == true)
+        {
+            switch(turn)
+            {
+                case Player::TURN_BLACK:
+                    triangle->TurnChange(1);
+                    turnChanged = false;
+                    break;
+                case Player::TURN_WHITE:
+                    triangle->TurnChange(2);
+                    turnChanged = false;
+                    break;
+            }
+        }
+        
         textBlack->Draw(textBlackId);
         textWhite->Draw(textWhiteId);
+        triangle->Draw(triangleId);
         scoreBlack01->Draw(scoreId);
         scoreBlack10->Draw(scoreId);
         scoreWhite01->Draw(scoreId);
@@ -154,6 +173,7 @@ void Init()
 {
     setCount = 0;
     turn = Player::TURN_BLACK;
+    turnChanged = true;
     
     //--------------------1度、盤面を全てNONEにしてから初期石をセットする--------------------
     for(int i = 0; i < BOARD_SIZE; i++)
@@ -514,6 +534,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
                                         setCount++;
                                         panel[(BOARD_SIZE - 1) - i][j]->Update(Panel::Type::BLACK);
                                         turn = Player::TURN_WHITE;
+                                        turnChanged = true;
                                         //相手の番になった瞬間に、相手が石を置けるかどうかの判定を行なう
                                         EnableCheck();
                                     }
@@ -840,6 +861,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
                                         setCount++;
                                         panel[(BOARD_SIZE - 1) - i][j]->Update(Panel::Type::WHITE);
                                         turn = Player::TURN_BLACK;
+                                        turnChanged = true;
                                         EnableCheck();
                                     }
                                     
@@ -853,6 +875,8 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
         }
     }
 }
+
+//----------------------------------------------------------------------------------------------------
 
 void EnableCheck()
 {
@@ -1168,8 +1192,6 @@ void EnableCheck()
                             }
                         }
                         //-------------------------左斜め下方向の処理-------------------------
-                        
-                        
                         
                         break;
                     }
@@ -1562,29 +1584,8 @@ void ErrorCallback(int error, const char* descriptiion)
 
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    if(key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
-    {
-        glfwSetWindowShouldClose(window, GLFW_TRUE);
-    }
-    
     if(key == GLFW_KEY_R && action == GLFW_RELEASE)
     {
         Init();
     }
-}
-
-#ifdef WINDOWS
-#include <direct.h>
-#define GetCurrentDir _getcwd
-#else
-#include <unistd.h>
-#define GetCurrentDir getcwd
-#endif
-
-std::string GetCurrentWorkingDir(void)
-{
-    char buff[FILENAME_MAX];
-    GetCurrentDir(buff, FILENAME_MAX);
-    std::string currentWorkingDir(buff);
-    return currentWorkingDir;
 }
