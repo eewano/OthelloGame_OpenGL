@@ -23,7 +23,6 @@ public:
 public:
     Panel();
     Panel(Vec2f aSize, Vec2f aPos);
-    
     ~Panel();
     
     void Update(Type aType);

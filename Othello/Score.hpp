@@ -13,7 +13,6 @@ class Score : public Sprite<SCORE_VERTS_COUNT>
 {
 public:
     Score(Vec2f aSize, Vec2f aPos);
-    
     ~Score();
     
 public:

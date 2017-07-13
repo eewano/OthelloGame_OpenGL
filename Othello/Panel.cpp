@@ -29,8 +29,8 @@ void Panel::Update(Type aType)
 
 void Panel::RefreshUv(Type aType)
 {
-    uv[0] = { (0.0f + (int)aType) / 4.0f, 1.0f };
-    uv[1] = { (1.0f + (int)aType) / 4.0f, 1.0f };
-    uv[2] = { (1.0f + (int)aType) / 4.0f, 0.0f };
-    uv[3] = { (0.0f + (int)aType) / 4.0f, 0.0f };
+    uv[0] = { (0.0f + (int)aType) / 3.0f, 1.0f };
+    uv[1] = { (1.0f + (int)aType) / 3.0f, 1.0f };
+    uv[2] = { (1.0f + (int)aType) / 3.0f, 0.0f };
+    uv[3] = { (0.0f + (int)aType) / 3.0f, 0.0f };
 }
