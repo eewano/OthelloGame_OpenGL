@@ -30,7 +30,6 @@ enum class Player
 
 double cposX, cposY; //マウスのカーソルの座標
 
-void ErrorCallback(int error, const char* descriptiion);
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
@@ -1575,11 +1574,6 @@ void EnableCheck()
     {
         EnableCheck();
     }
-}
-
-void ErrorCallback(int error, const char* descriptiion)
-{
-    std::cerr << "Error: " << descriptiion << ".\n";
 }
 
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
