@@ -15,6 +15,7 @@
 #include "Text.hpp"
 #include "Score.hpp"
 #include "Utility.hpp"
+#include "Input.hpp"
 
 int pointBlack = 0;
 int pointWhite = 0;
@@ -31,11 +32,13 @@ enum class Player
 double cposX, cposY; //マウスのカーソルの座標
 
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
+void CursorPosCallback(GLFWwindow* window, double xpos, double ypos);
+void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 
 void EnableCheck(); //石を置けるかの判定と、ひっくり返す処理関数
 void Init();
 
+Input input;
 Player turn = Player::TURN_BLACK;
 Shader shader;
 
@@ -62,7 +65,8 @@ int main(int argc, const char * argv[]) {
     
     glfwSetErrorCallback(ErrorCallback);
     glfwSetKeyCallback(window, KeyCallback);
-    glfwSetMouseButtonCallback(window, mouse_button_callback);
+    glfwSetCursorPosCallback(window, CursorPosCallback);
+    glfwSetMouseButtonCallback(window, MouseButtonCallback);
     
     glfwMakeContextCurrent(window);
     auto addr = (GLADloadproc)glfwGetProcAddress;
@@ -191,9 +195,47 @@ void Init()
     std::cout << "Game Start!\n";
 }
 
-void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+    if(action == GLFW_PRESS)
+    {
+        input.mKeyStates[key].pressed = true;
+    }
+    else if(action == GLFW_RELEASE)
+    {
+        input.mKeyStates[key].pressed = false;
+    }
+    
+    if(input.mKeyStates[GLFW_KEY_R].pressed == true)
+    {
+        Init();
+    }
+}
+
+void CursorPosCallback(GLFWwindow* window, double xpos, double ypos)
+{
+    static double pastX = 0, pastY = 0;
+    if(pastX == cposX && pastY == cposY)
+    {
+        return;
+    }
+    
+    //カーソル位置の更新
+    input.mCursorPosition = { static_cast<int>(xpos), static_cast<int>(ypos) };
+}
+
+void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+{
+    if(action == GLFW_PRESS)
+    {
+        input.mMouseStates[button].pressed = true;
+    }
+    else if(action == GLFW_RELEASE)
+    {
+        input.mMouseStates[button].pressed = false;
+    }
+    
+    if(input.mMouseStates[GLFW_MOUSE_BUTTON_LEFT].pressed == true)
     {
         for(int i = 0; i < BOARD_SIZE; i++)
         {
@@ -1573,13 +1615,5 @@ void EnableCheck()
     if(isPassed)
     {
         EnableCheck();
-    }
-}
-
-void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-    if(key == GLFW_KEY_R && action == GLFW_RELEASE)
-    {
-        Init();
     }
 }
