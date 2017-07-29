@@ -27,9 +27,10 @@ public:
     
     void Update(Type aType);
     void RefreshUv(Type aType);
+    Type GetType() const;
     
 public:
-    Type mStatus;
+    Type mType;
 };
 
 #endif /* Panel_hpp */

@@ -16,6 +16,7 @@
 #include "Score.hpp"
 #include "Utility.hpp"
 #include "Input.hpp"
+#include "GameManager.hpp"
 
 int pointBlack = 0;
 int pointWhite = 0;
@@ -93,7 +94,7 @@ int main(int argc, const char * argv[]) {
     {
         for(int j = 0; j < BOARD_SIZE; j++)
         {
-            panel[i][j] = std::make_unique<Panel>(STONE_SIZE, Vec2f{ BOARD_POS_X + j * 0.1f, BOARD_POS_Y + i * 0.1f });
+            panel[i][j] = std::make_unique<Panel>(STONE_SIZE, Vec2f{ BOARD_DOWN_LEFT_POS.x + j * 0.1f, BOARD_DOWN_LEFT_POS.y + i * 0.1f });
         }
     }
     
@@ -120,12 +121,12 @@ int main(int argc, const char * argv[]) {
             for(int j = 0; j < BOARD_SIZE; j++)
             {
                 //Update関数の引数に直接mStateの値を入れる事でswitch文が不要となる
-                panel[i][j]->Update(panel[i][j]->mStatus);
-                if(panel[i][j]->mStatus == Panel::Type::BLACK)
+                panel[i][j]->Update(panel[i][j]->mType);
+                if(panel[i][j]->mType == Panel::Type::BLACK)
                 {
                     pointBlack++;
                 }
-                else if(panel[i][j]->mStatus == Panel::Type::WHITE)
+                else if(panel[i][j]->mType == Panel::Type::WHITE)
                 {
                     pointWhite++;
                 }
@@ -248,7 +249,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                     if(setCount < 64)
                     {
                         //盤面がNONEの場所でないと石が置けない
-                        if(panel[(BOARD_SIZE - 1) - i][j]->mStatus == Panel::Type::NONE)
+                        if(panel[(BOARD_SIZE - 1) - i][j]->mType == Panel::Type::NONE)
                         {
                             switch(turn)
                             {
@@ -264,7 +265,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                     {
                                         x01--;
                                         //確認先に同色の石が見つかったら...
-                                        if(panel[(BOARD_SIZE - 1) - i][x01]->mStatus == Panel::Type::BLACK)
+                                        if(panel[(BOARD_SIZE - 1) - i][x01]->mType == Panel::Type::BLACK)
                                         {
                                             continueFlag = false;
                                             int x02 = x01;
@@ -277,7 +278,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                                 changeFlag = true;
                                             }
                                         }
-                                        else if(panel[(BOARD_SIZE - 1) - i][x01]->mStatus == Panel::Type::NONE)
+                                        else if(panel[(BOARD_SIZE - 1) - i][x01]->mType == Panel::Type::NONE)
                                         {
                                             break;
                                         }
@@ -301,7 +302,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                     while(x01 < BOARD_SIZE - 1)
                                     {
                                         x01++;
-                                        if(panel[(BOARD_SIZE - 1) - i][x01]->mStatus == Panel::Type::BLACK)
+                                        if(panel[(BOARD_SIZE - 1) - i][x01]->mType == Panel::Type::BLACK)
                                         {
                                             continueFlag = false;
                                             int x02 = x01;
@@ -312,7 +313,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                                 changeFlag = true;
                                             }
                                         }
-                                        else if(panel[(BOARD_SIZE - 1) - i][x01]->mStatus == Panel::Type::NONE)
+                                        else if(panel[(BOARD_SIZE - 1) - i][x01]->mType == Panel::Type::NONE)
                                         {
                                             break;
                                         }
@@ -336,7 +337,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                     while(y01 < BOARD_SIZE - 1)
                                     {
                                         y01++;
-                                        if(panel[y01][j]->mStatus == Panel::Type::BLACK)
+                                        if(panel[y01][j]->mType == Panel::Type::BLACK)
                                         {
                                             continueFlag = false;
                                             int y02 = y01;
@@ -347,7 +348,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                                 changeFlag = true;
                                             }
                                         }
-                                        else if(panel[y01][j]->mStatus == Panel::Type::NONE)
+                                        else if(panel[y01][j]->mType == Panel::Type::NONE)
                                         {
                                             break;
                                         }
@@ -371,7 +372,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                     while(y01 > 0)
                                     {
                                         y01--;
-                                        if(panel[y01][j]->mStatus == Panel::Type::BLACK)
+                                        if(panel[y01][j]->mType == Panel::Type::BLACK)
                                         {
                                             continueFlag = false;
                                             int y02 = y01;
@@ -382,7 +383,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                                 changeFlag = true;
                                             }
                                         }
-                                        else if(panel[y01][j]->mStatus == Panel::Type::NONE)
+                                        else if(panel[y01][j]->mType == Panel::Type::NONE)
                                         {
                                             break;
                                         }
@@ -408,7 +409,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                     {
                                         x01--;
                                         y01++;
-                                        if(panel[y01][x01]->mStatus == Panel::Type::BLACK)
+                                        if(panel[y01][x01]->mType == Panel::Type::BLACK)
                                         {
                                             continueFlag = false;
                                             int x02 = x01;
@@ -417,14 +418,14 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                             {
                                                 x02++;
                                                 y02--;
-                                                if(panel[y02][x02]->mStatus == Panel::Type::WHITE)
+                                                if(panel[y02][x02]->mType == Panel::Type::WHITE)
                                                 {
                                                     panel[y02][x02]->Update(Panel::Type::BLACK);
                                                     changeFlag = true;
                                                 }
                                             }
                                         }
-                                        else if(panel[y01][x01]->mStatus == Panel::Type::NONE)
+                                        else if(panel[y01][x01]->mType == Panel::Type::NONE)
                                         {
                                             break;
                                         }
@@ -450,7 +451,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                     {
                                         x01++;
                                         y01--;
-                                        if(panel[y01][x01]->mStatus == Panel::Type::BLACK)
+                                        if(panel[y01][x01]->mType == Panel::Type::BLACK)
                                         {
                                             continueFlag = false;
                                             int x02 = x01;
@@ -459,14 +460,14 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                             {
                                                 x02--;
                                                 y02++;
-                                                if(panel[y02][x02]->mStatus == Panel::Type::WHITE)
+                                                if(panel[y02][x02]->mType == Panel::Type::WHITE)
                                                 {
                                                     panel[y02][x02]->Update(Panel::Type::BLACK);
                                                     changeFlag = true;
                                                 }
                                             }
                                         }
-                                        else if(panel[y01][x01]->mStatus == Panel::Type::NONE)
+                                        else if(panel[y01][x01]->mType == Panel::Type::NONE)
                                         {
                                             break;
                                         }
@@ -492,7 +493,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                     {
                                         x01++;
                                         y01++;
-                                        if(panel[y01][x01]->mStatus == Panel::Type::BLACK)
+                                        if(panel[y01][x01]->mType == Panel::Type::BLACK)
                                         {
                                             continueFlag = false;
                                             int x02 = x01;
@@ -501,14 +502,14 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                             {
                                                 x02--;
                                                 y02--;
-                                                if(panel[y02][x02]->mStatus == Panel::Type::WHITE)
+                                                if(panel[y02][x02]->mType == Panel::Type::WHITE)
                                                 {
                                                     panel[y02][x02]->Update(Panel::Type::BLACK);
                                                     changeFlag = true;
                                                 }
                                             }
                                         }
-                                        else if(panel[y01][x01]->mStatus == Panel::Type::NONE)
+                                        else if(panel[y01][x01]->mType == Panel::Type::NONE)
                                         {
                                             break;
                                         }
@@ -534,7 +535,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                     {
                                         x01--;
                                         y01--;
-                                        if(panel[y01][x01]->mStatus == Panel::Type::BLACK)
+                                        if(panel[y01][x01]->mType == Panel::Type::BLACK)
                                         {
                                             continueFlag = false;
                                             int x02 = x01;
@@ -543,14 +544,14 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                             {
                                                 x02++;
                                                 y02++;
-                                                if(panel[y02][x02]->mStatus == Panel::Type::WHITE)
+                                                if(panel[y02][x02]->mType == Panel::Type::WHITE)
                                                 {
                                                     panel[y02][x02]->Update(Panel::Type::BLACK);
                                                     changeFlag = true;
                                                 }
                                             }
                                         }
-                                        else if(panel[y01][x01]->mStatus == Panel::Type::NONE)
+                                        else if(panel[y01][x01]->mType == Panel::Type::NONE)
                                         {
                                             break;
                                         }
@@ -595,7 +596,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                     while(x01 > 0)
                                     {
                                         x01--;
-                                        if(panel[(BOARD_SIZE - 1) - i][x01]->mStatus == Panel::Type::WHITE)
+                                        if(panel[(BOARD_SIZE - 1) - i][x01]->mType == Panel::Type::WHITE)
                                         {
                                             continueFlag = false;
                                             int x02 = x01;
@@ -606,7 +607,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                                 changeFlag = true;
                                             }
                                         }
-                                        else if(panel[(BOARD_SIZE - 1) - i][x01]->mStatus == Panel::Type::NONE)
+                                        else if(panel[(BOARD_SIZE - 1) - i][x01]->mType == Panel::Type::NONE)
                                         {
                                             break;
                                         }
@@ -630,7 +631,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                     while(x01 < BOARD_SIZE - 1)
                                     {
                                         x01++;
-                                        if(panel[(BOARD_SIZE - 1) - i][x01]->mStatus == Panel::Type::WHITE)
+                                        if(panel[(BOARD_SIZE - 1) - i][x01]->mType == Panel::Type::WHITE)
                                         {
                                             continueFlag = false;
                                             int x02 = x01;
@@ -641,7 +642,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                                 changeFlag = true;
                                             }
                                         }
-                                        else if(panel[(BOARD_SIZE - 1) - i][x01]->mStatus == Panel::Type::NONE)
+                                        else if(panel[(BOARD_SIZE - 1) - i][x01]->mType == Panel::Type::NONE)
                                         {
                                             break;
                                         }
@@ -665,7 +666,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                     while(y01 < BOARD_SIZE - 1)
                                     {
                                         y01++;
-                                        if(panel[y01][j]->mStatus == Panel::Type::WHITE)
+                                        if(panel[y01][j]->mType == Panel::Type::WHITE)
                                         {
                                             continueFlag = false;
                                             int y02 = y01;
@@ -676,7 +677,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                                 changeFlag = true;
                                             }
                                         }
-                                        else if(panel[y01][j]->mStatus == Panel::Type::NONE)
+                                        else if(panel[y01][j]->mType == Panel::Type::NONE)
                                         {
                                             break;
                                         }
@@ -700,7 +701,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                     while(y01 > 0)
                                     {
                                         y01--;
-                                        if(panel[y01][j]->mStatus == Panel::Type::WHITE)
+                                        if(panel[y01][j]->mType == Panel::Type::WHITE)
                                         {
                                             continueFlag = false;
                                             int y02 = y01;
@@ -711,7 +712,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                                 changeFlag = true;
                                             }
                                         }
-                                        else if(panel[y01][j]->mStatus == Panel::Type::NONE)
+                                        else if(panel[y01][j]->mType == Panel::Type::NONE)
                                         {
                                             break;
                                         }
@@ -737,7 +738,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                     {
                                         x01--;
                                         y01++;
-                                        if(panel[y01][x01]->mStatus == Panel::Type::WHITE)
+                                        if(panel[y01][x01]->mType == Panel::Type::WHITE)
                                         {
                                             continueFlag = false;
                                             int x02 = x01;
@@ -746,14 +747,14 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                             {
                                                 x02++;
                                                 y02--;
-                                                if(panel[y02][x02]->mStatus == Panel::Type::BLACK)
+                                                if(panel[y02][x02]->mType == Panel::Type::BLACK)
                                                 {
                                                     panel[y02][x02]->Update(Panel::Type::WHITE);
                                                     changeFlag = true;
                                                 }
                                             }
                                         }
-                                        else if(panel[y01][x01]->mStatus == Panel::Type::NONE)
+                                        else if(panel[y01][x01]->mType == Panel::Type::NONE)
                                         {
                                             break;
                                         }
@@ -779,7 +780,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                     {
                                         x01++;
                                         y01--;
-                                        if(panel[y01][x01]->mStatus == Panel::Type::WHITE)
+                                        if(panel[y01][x01]->mType == Panel::Type::WHITE)
                                         {
                                             continueFlag = false;
                                             int x02 = x01;
@@ -788,14 +789,14 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                             {
                                                 x02--;
                                                 y02++;
-                                                if(panel[y02][x02]->mStatus == Panel::Type::BLACK)
+                                                if(panel[y02][x02]->mType == Panel::Type::BLACK)
                                                 {
                                                     panel[y02][x02]->Update(Panel::Type::WHITE);
                                                     changeFlag = true;
                                                 }
                                             }
                                         }
-                                        else if(panel[y01][x01]->mStatus == Panel::Type::NONE)
+                                        else if(panel[y01][x01]->mType == Panel::Type::NONE)
                                         {
                                             break;
                                         }
@@ -821,7 +822,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                     {
                                         x01++;
                                         y01++;
-                                        if(panel[y01][x01]->mStatus == Panel::Type::WHITE)
+                                        if(panel[y01][x01]->mType == Panel::Type::WHITE)
                                         {
                                             continueFlag = false;
                                             int x02 = x01;
@@ -830,14 +831,14 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                             {
                                                 x02--;
                                                 y02--;
-                                                if(panel[y02][x02]->mStatus == Panel::Type::BLACK)
+                                                if(panel[y02][x02]->mType == Panel::Type::BLACK)
                                                 {
                                                     panel[y02][x02]->Update(Panel::Type::WHITE);
                                                     changeFlag = true;
                                                 }
                                             }
                                         }
-                                        else if(panel[y01][x01]->mStatus == Panel::Type::NONE)
+                                        else if(panel[y01][x01]->mType == Panel::Type::NONE)
                                         {
                                             break;
                                         }
@@ -863,7 +864,7 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                     {
                                         x01--;
                                         y01--;
-                                        if(panel[y01][x01]->mStatus == Panel::Type::WHITE)
+                                        if(panel[y01][x01]->mType == Panel::Type::WHITE)
                                         {
                                             continueFlag = false;
                                             int x02 = x01;
@@ -872,14 +873,14 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
                                             {
                                                 x02++;
                                                 y02++;
-                                                if(panel[y02][x02]->mStatus == Panel::Type::BLACK)
+                                                if(panel[y02][x02]->mType == Panel::Type::BLACK)
                                                 {
                                                     panel[y02][x02]->Update(Panel::Type::WHITE);
                                                     changeFlag = true;
                                                 }
                                             }
                                         }
-                                        else if(panel[y01][x01]->mStatus == Panel::Type::NONE)
+                                        else if(panel[y01][x01]->mType == Panel::Type::NONE)
                                         {
                                             break;
                                         }
@@ -927,7 +928,7 @@ void EnableCheck()
     {
         for(int j = 0; j < BOARD_SIZE; j++)
         {
-            if(panel[(BOARD_SIZE - 1) - i][j]->mStatus == Panel::Type::NONE)
+            if(panel[(BOARD_SIZE - 1) - i][j]->mType == Panel::Type::NONE)
             {
                 switch(turn)
                 {
@@ -940,7 +941,7 @@ void EnableCheck()
                         while(x01 > 0)
                         {
                             x01--;
-                            if(panel[(BOARD_SIZE - 1) - i][x01]->mStatus == Panel::Type::BLACK)
+                            if(panel[(BOARD_SIZE - 1) - i][x01]->mType == Panel::Type::BLACK)
                             {
                                 continueFlag = false;
                                 int x02 = x01;
@@ -950,7 +951,7 @@ void EnableCheck()
                                     changeFlag = true;
                                 }
                             }
-                            else if(panel[(BOARD_SIZE - 1) - i][x01]->mStatus == Panel::Type::NONE)
+                            else if(panel[(BOARD_SIZE - 1) - i][x01]->mType == Panel::Type::NONE)
                             {
                                 break;
                             }
@@ -974,7 +975,7 @@ void EnableCheck()
                         while(x01 < BOARD_SIZE - 1)
                         {
                             x01++;
-                            if(panel[(BOARD_SIZE - 1) - i][x01]->mStatus == Panel::Type::BLACK)
+                            if(panel[(BOARD_SIZE - 1) - i][x01]->mType == Panel::Type::BLACK)
                             {
                                 continueFlag = false;
                                 int x02 = x01;
@@ -984,7 +985,7 @@ void EnableCheck()
                                     changeFlag = true;
                                 }
                             }
-                            else if(panel[(BOARD_SIZE - 1) - i][x01]->mStatus == Panel::Type::NONE)
+                            else if(panel[(BOARD_SIZE - 1) - i][x01]->mType == Panel::Type::NONE)
                             {
                                 break;
                             }
@@ -1008,7 +1009,7 @@ void EnableCheck()
                         while(y01 < BOARD_SIZE - 1)
                         {
                             y01++;
-                            if(panel[y01][j]->mStatus == Panel::Type::BLACK)
+                            if(panel[y01][j]->mType == Panel::Type::BLACK)
                             {
                                 continueFlag = false;
                                 int y02 = y01;
@@ -1018,7 +1019,7 @@ void EnableCheck()
                                     changeFlag = true;
                                 }
                             }
-                            else if(panel[y01][j]->mStatus == Panel::Type::NONE)
+                            else if(panel[y01][j]->mType == Panel::Type::NONE)
                             {
                                 break;
                             }
@@ -1042,7 +1043,7 @@ void EnableCheck()
                         while(y01 > 0)
                         {
                             y01--;
-                            if(panel[y01][j]->mStatus == Panel::Type::BLACK)
+                            if(panel[y01][j]->mType == Panel::Type::BLACK)
                             {
                                 continueFlag = false;
                                 int y02 = y01;
@@ -1052,7 +1053,7 @@ void EnableCheck()
                                     changeFlag = true;
                                 }
                             }
-                            else if(panel[y01][j]->mStatus == Panel::Type::NONE)
+                            else if(panel[y01][j]->mType == Panel::Type::NONE)
                             {
                                 break;
                             }
@@ -1078,7 +1079,7 @@ void EnableCheck()
                         {
                             x01--;
                             y01++;
-                            if(panel[y01][x01]->mStatus == Panel::Type::BLACK)
+                            if(panel[y01][x01]->mType == Panel::Type::BLACK)
                             {
                                 continueFlag = false;
                                 int x02 = x01;
@@ -1087,13 +1088,13 @@ void EnableCheck()
                                 {
                                     x02++;
                                     y02--;
-                                    if(panel[y02][x02]->mStatus == Panel::Type::WHITE)
+                                    if(panel[y02][x02]->mType == Panel::Type::WHITE)
                                     {
                                         changeFlag = true;
                                     }
                                 }
                             }
-                            else if(panel[y01][x01]->mStatus == Panel::Type::NONE)
+                            else if(panel[y01][x01]->mType == Panel::Type::NONE)
                             {
                                 break;
                             }
@@ -1119,7 +1120,7 @@ void EnableCheck()
                         {
                             x01++;
                             y01--;
-                            if(panel[y01][x01]->mStatus == Panel::Type::BLACK)
+                            if(panel[y01][x01]->mType == Panel::Type::BLACK)
                             {
                                 continueFlag = false;
                                 int x02 = x01;
@@ -1128,13 +1129,13 @@ void EnableCheck()
                                 {
                                     x02--;
                                     y02++;
-                                    if(panel[y02][x02]->mStatus == Panel::Type::WHITE)
+                                    if(panel[y02][x02]->mType == Panel::Type::WHITE)
                                     {
                                         changeFlag = true;
                                     }
                                 }
                             }
-                            else if(panel[y01][x01]->mStatus == Panel::Type::NONE)
+                            else if(panel[y01][x01]->mType == Panel::Type::NONE)
                             {
                                 break;
                             }
@@ -1160,7 +1161,7 @@ void EnableCheck()
                         {
                             x01++;
                             y01++;
-                            if(panel[y01][x01]->mStatus == Panel::Type::BLACK)
+                            if(panel[y01][x01]->mType == Panel::Type::BLACK)
                             {
                                 continueFlag = false;
                                 int x02 = x01;
@@ -1169,13 +1170,13 @@ void EnableCheck()
                                 {
                                     x02--;
                                     y02--;
-                                    if(panel[y02][x02]->mStatus == Panel::Type::WHITE)
+                                    if(panel[y02][x02]->mType == Panel::Type::WHITE)
                                     {
                                         changeFlag = true;
                                     }
                                 }
                             }
-                            else if(panel[y01][x01]->mStatus == Panel::Type::NONE)
+                            else if(panel[y01][x01]->mType == Panel::Type::NONE)
                             {
                                 break;
                             }
@@ -1201,7 +1202,7 @@ void EnableCheck()
                         {
                             x01--;
                             y01--;
-                            if(panel[y01][x01]->mStatus == Panel::Type::BLACK)
+                            if(panel[y01][x01]->mType == Panel::Type::BLACK)
                             {
                                 continueFlag = false;
                                 int x02 = x01;
@@ -1210,13 +1211,13 @@ void EnableCheck()
                                 {
                                     x02++;
                                     y02++;
-                                    if(panel[y02][x02]->mStatus == Panel::Type::WHITE)
+                                    if(panel[y02][x02]->mType == Panel::Type::WHITE)
                                     {
                                         changeFlag = true;
                                     }
                                 }
                             }
-                            else if(panel[y01][x01]->mStatus == Panel::Type::NONE)
+                            else if(panel[y01][x01]->mType == Panel::Type::NONE)
                             {
                                 break;
                             }
@@ -1248,7 +1249,7 @@ void EnableCheck()
                         while(x01 > 0)
                         {
                             x01--;
-                            if(panel[(BOARD_SIZE - 1) - i][x01]->mStatus == Panel::Type::WHITE)
+                            if(panel[(BOARD_SIZE - 1) - i][x01]->mType == Panel::Type::WHITE)
                             {
                                 continueFlag = false;
                                 int x02 = x01;
@@ -1258,7 +1259,7 @@ void EnableCheck()
                                     changeFlag = true;
                                 }
                             }
-                            else if(panel[(BOARD_SIZE - 1) - i][x01]->mStatus == Panel::Type::NONE)
+                            else if(panel[(BOARD_SIZE - 1) - i][x01]->mType == Panel::Type::NONE)
                             {
                                 break;
                             }
@@ -1282,7 +1283,7 @@ void EnableCheck()
                         while(x01 < BOARD_SIZE - 1)
                         {
                             x01++;
-                            if(panel[(BOARD_SIZE - 1) - i][x01]->mStatus == Panel::Type::WHITE)
+                            if(panel[(BOARD_SIZE - 1) - i][x01]->mType == Panel::Type::WHITE)
                             {
                                 continueFlag = false;
                                 int x02 = x01;
@@ -1292,7 +1293,7 @@ void EnableCheck()
                                     changeFlag = true;
                                 }
                             }
-                            else if(panel[(BOARD_SIZE - 1) - i][x01]->mStatus == Panel::Type::NONE)
+                            else if(panel[(BOARD_SIZE - 1) - i][x01]->mType == Panel::Type::NONE)
                             {
                                 break;
                             }
@@ -1316,7 +1317,7 @@ void EnableCheck()
                         while(y01 < BOARD_SIZE - 1)
                         {
                             y01++;
-                            if(panel[y01][j]->mStatus == Panel::Type::WHITE)
+                            if(panel[y01][j]->mType == Panel::Type::WHITE)
                             {
                                 continueFlag = false;
                                 int y02 = y01;
@@ -1326,7 +1327,7 @@ void EnableCheck()
                                     changeFlag = true;
                                 }
                             }
-                            else if(panel[y01][j]->mStatus == Panel::Type::NONE)
+                            else if(panel[y01][j]->mType == Panel::Type::NONE)
                             {
                                 break;
                             }
@@ -1350,7 +1351,7 @@ void EnableCheck()
                         while(y01 > 0)
                         {
                             y01--;
-                            if(panel[y01][j]->mStatus == Panel::Type::WHITE)
+                            if(panel[y01][j]->mType == Panel::Type::WHITE)
                             {
                                 continueFlag = false;
                                 int y02 = y01;
@@ -1360,7 +1361,7 @@ void EnableCheck()
                                     changeFlag = true;
                                 }
                             }
-                            else if(panel[y01][j]->mStatus == Panel::Type::NONE)
+                            else if(panel[y01][j]->mType == Panel::Type::NONE)
                             {
                                 break;
                             }
@@ -1386,7 +1387,7 @@ void EnableCheck()
                         {
                             x01--;
                             y01++;
-                            if(panel[y01][x01]->mStatus == Panel::Type::WHITE)
+                            if(panel[y01][x01]->mType == Panel::Type::WHITE)
                             {
                                 continueFlag = false;
                                 int x02 = x01;
@@ -1395,13 +1396,13 @@ void EnableCheck()
                                 {
                                     x02++;
                                     y02--;
-                                    if(panel[y02][x02]->mStatus == Panel::Type::BLACK)
+                                    if(panel[y02][x02]->mType == Panel::Type::BLACK)
                                     {
                                         changeFlag = true;
                                     }
                                 }
                             }
-                            else if(panel[y01][x01]->mStatus == Panel::Type::NONE)
+                            else if(panel[y01][x01]->mType == Panel::Type::NONE)
                             {
                                 break;
                             }
@@ -1427,7 +1428,7 @@ void EnableCheck()
                         {
                             x01++;
                             y01--;
-                            if(panel[y01][x01]->mStatus == Panel::Type::WHITE)
+                            if(panel[y01][x01]->mType == Panel::Type::WHITE)
                             {
                                 continueFlag = false;
                                 int x02 = x01;
@@ -1436,13 +1437,13 @@ void EnableCheck()
                                 {
                                     x02--;
                                     y02++;
-                                    if(panel[y02][x02]->mStatus == Panel::Type::BLACK)
+                                    if(panel[y02][x02]->mType == Panel::Type::BLACK)
                                     {
                                         changeFlag = true;
                                     }
                                 }
                             }
-                            else if(panel[y01][x01]->mStatus == Panel::Type::NONE)
+                            else if(panel[y01][x01]->mType == Panel::Type::NONE)
                             {
                                 break;
                             }
@@ -1468,7 +1469,7 @@ void EnableCheck()
                         {
                             x01++;
                             y01++;
-                            if(panel[y01][x01]->mStatus == Panel::Type::WHITE)
+                            if(panel[y01][x01]->mType == Panel::Type::WHITE)
                             {
                                 continueFlag = false;
                                 int x02 = x01;
@@ -1477,13 +1478,13 @@ void EnableCheck()
                                 {
                                     x02--;
                                     y02--;
-                                    if(panel[y02][x02]->mStatus == Panel::Type::BLACK)
+                                    if(panel[y02][x02]->mType == Panel::Type::BLACK)
                                     {
                                         changeFlag = true;
                                     }
                                 }
                             }
-                            else if(panel[y01][x01]->mStatus == Panel::Type::NONE)
+                            else if(panel[y01][x01]->mType == Panel::Type::NONE)
                             {
                                 break;
                             }
@@ -1509,7 +1510,7 @@ void EnableCheck()
                         {
                             x01--;
                             y01--;
-                            if(panel[y01][x01]->mStatus == Panel::Type::WHITE)
+                            if(panel[y01][x01]->mType == Panel::Type::WHITE)
                             {
                                 continueFlag = false;
                                 int x02 = x01;
@@ -1518,13 +1519,13 @@ void EnableCheck()
                                 {
                                     x02++;
                                     y02++;
-                                    if(panel[y02][x02]->mStatus == Panel::Type::BLACK)
+                                    if(panel[y02][x02]->mType == Panel::Type::BLACK)
                                     {
                                         changeFlag = true;
                                     }
                                 }
                             }
-                            else if(panel[y01][x01]->mStatus == Panel::Type::NONE)
+                            else if(panel[y01][x01]->mType == Panel::Type::NONE)
                             {
                                 break;
                             }
