@@ -8,6 +8,7 @@
 #include "Vec2.hpp"
 
 static constexpr int STONE_VERTS_COUNT = 4;
+static constexpr int NUMBER_OF_PANEL = 3;
 static Vec2f STONE_SIZE = { 0.2f, 0.2f };
 
 class Panel : public Sprite<4>
@@ -27,7 +28,9 @@ public:
     
     void Update(Type aType);
     void RefreshUv(Type aType);
+    void SetType(const Type aType);
     Type GetType() const;
+    Type GetEnemyType() const;
     
 public:
     Type mType;
