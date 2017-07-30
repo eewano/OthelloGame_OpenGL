@@ -14,7 +14,21 @@ template<int VERTS_COUNT>
 class Sprite
 {
 public:
-    Sprite() = default;
+    Sprite()
+    {
+        std::cout << "Invalid Sprite constructor.\n";
+    }
+    
+    Sprite(const Vec2f& aSize, const Vec2f& aPos)
+    : pos(aPos)
+    , size(aSize)
+    {
+        vertex[0] = geometry[0] = { -aSize.x / 2, +aSize.y / 2 };
+        vertex[1] = geometry[1] = { +aSize.x / 2, +aSize.y / 2 };
+        vertex[2] = geometry[2] = { +aSize.x / 2, -aSize.y / 2 };
+        vertex[3] = geometry[3] = { -aSize.x / 2, -aSize.y / 2 };
+    }
+    
     virtual ~Sprite() = default;
     
 public:
