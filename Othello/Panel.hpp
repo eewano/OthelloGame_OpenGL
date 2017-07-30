@@ -1,17 +1,14 @@
 #ifndef Panel_hpp
 #define Panel_hpp
 
-#include <iostream>
 #include "Define.hpp"
-#include "Shader.hpp"
 #include "Sprite.hpp"
-#include "Vec2.hpp"
 
-static constexpr int STONE_VERTS_COUNT = 4;
+static constexpr int PANEL_VERTS_COUNT = 4;
 static constexpr int NUMBER_OF_PANEL = 3;
-static Vec2f STONE_SIZE = { 0.2f, 0.2f };
+static constexpr Vec2f PANEL_TEX_SIZE = { 0.2f, 0.2f };
 
-class Panel : public Sprite<4>
+class Panel : public Sprite<PANEL_VERTS_COUNT>
 {
 public:
     enum class Type
@@ -23,11 +20,9 @@ public:
     
 public:
     Panel();
-    Panel(Vec2f aSize, Vec2f aPos);
+    Panel(const Vec2f& aSize, const Vec2f& aPos);
     ~Panel();
     
-    void Update(Type aType);
-    void RefreshUv(Type aType);
     void SetType(const Type aType);
     Type GetType() const;
     Type GetEnemyType() const;
