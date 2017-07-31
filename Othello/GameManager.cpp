@@ -23,7 +23,7 @@ void GameManager::SetPanel(const Vec2i& aPos)
     Vec2i fixedPosition = aPos - TOP_LEFT_POS;
     Vec2i index = fixedPosition / PANEL_SIZE;
     
-    if(IsPanelNONE(mBoard[index.y][index.x].GetType()))
+    if(IsPanelNONE(mBoard[index.y][index.x].GetType()) == false)
     {
         std::cout << "Index (" << index.x << ", " << index.y << ") already exists.\n";
         return;
@@ -120,6 +120,17 @@ Vec2i GameManager::GetScore() const
         }
     }
     return scoreCount;
+}
+
+void GameManager::Draw(const int id)
+{
+    for(size_t i = 0; i < BOARD_SIZE; i++)
+    {
+        for(size_t j = 0; j < BOARD_SIZE; j++)
+        {
+            mBoard[i][j].Draw(id);
+        }
+    }
 }
 
 size_t GameManager::TryFlip(const Vec2i &index, const Panel::Type type)
