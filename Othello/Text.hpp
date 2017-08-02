@@ -17,7 +17,7 @@ public:
     Text(Vec2f aSize, Vec2f aPos);
     ~Text();
     
-    void TurnChange(int turn);
+    void TurnChange(char aType);
 };
 
 #endif /* Text_hpp */

@@ -25,14 +25,14 @@ Text::~Text()
 {
 }
 
-void Text::TurnChange(int turn)
+void Text::TurnChange(char aType)
 {
-    if(turn == 1)
+    if(aType == 'B')
     {
         pos.x = -0.525;
         pos.y = 0.35;
     }
-    else if(turn == 2)
+    else if(aType == 'W')
     {
         pos.x = 0.525;
         pos.y = 0.35;
