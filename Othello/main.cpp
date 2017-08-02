@@ -34,7 +34,6 @@ std::unique_ptr<GameManager> gameManager;
 std::unique_ptr<Panel> panel[BOARD_SIZE][BOARD_SIZE];
 std::unique_ptr<Text> textBlack;
 std::unique_ptr<Text> textWhite;
-std::unique_ptr<Text> triangle;
 std::unique_ptr<Score> scoreBlack01;
 std::unique_ptr<Score> scoreBlack10;
 std::unique_ptr<Score> scoreWhite01;
@@ -78,15 +77,12 @@ int main(int argc, const char * argv[]) {
     gameManager = std::make_unique<GameManager>();
     textBlack = std::make_unique<Text>(TEXT_BLACK_SIZE, Vec2f{ -0.525f, 0.2f });
     textWhite = std::make_unique<Text>(TEXT_WHITE_SIZE, Vec2f{ 0.525f, 0.2f });
-    triangle = std::make_unique<Text>(TRIANGLE_SIZE, Vec2f{ 0.0f, 0.0f });
     scoreBlack01 = std::make_unique<Score>(SCORE_SIZE, Vec2f{ -0.475f, 0.05f });
     scoreBlack10 = std::make_unique<Score>(SCORE_SIZE, Vec2f{ -0.55f, 0.05f });
     scoreWhite01 = std::make_unique<Score>(SCORE_SIZE, Vec2f{ 0.575f, 0.05f });
     scoreWhite10 = std::make_unique<Score>(SCORE_SIZE, Vec2f{ 0.5f, 0.05f });
     
     gameState = GameState::INIT;
-    
-    triangle->TurnChange(1);
     
     while(glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
           glfwWindowShouldClose(window) == 0)
@@ -245,13 +241,13 @@ void Draw()
     
     textBlack->Draw(textBlackId);
     textWhite->Draw(textWhiteId);
-    triangle->Draw(triangleId);
     scoreBlack01->Draw(scoreId);
     scoreBlack10->Draw(scoreId);
     scoreWhite01->Draw(scoreId);
     scoreWhite10->Draw(scoreId);
     
-    gameManager->Draw(panelId);
+    gameManager->DrawPanel(panelId);
+    gameManager->DrawTriangle(triangleId);
 }
 
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -293,9 +289,4 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
     {
         input.mMouseStates[button].pressed = false;
     }
-}
-
-void EnableCheck()
-{
-    
 }
