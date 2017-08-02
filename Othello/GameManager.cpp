@@ -57,6 +57,7 @@ void GameManager::ResetBoard()
     mBoard[4][4].SetType(Panel::Type::WHITE);
     
     mTurn = Panel::Type::BLACK;
+    mNext->TurnChange('B');
 }
 
 bool GameManager::CheckPlayable()
@@ -84,9 +85,11 @@ void GameManager::SwitchTurn()
     {
         case Panel::Type::BLACK:
             mTurn = Panel::Type::WHITE;
+            mNext->TurnChange('W');
             break;
         case Panel::Type::WHITE:
             mTurn = Panel::Type::BLACK;
+            mNext->TurnChange('B');
             break;
         case Panel::Type::NONE:
             default:
@@ -122,7 +125,7 @@ Vec2i GameManager::GetScore() const
     return scoreCount;
 }
 
-void GameManager::Draw(const int id)
+void GameManager::DrawPanel(const int id)
 {
     for(size_t i = 0; i < BOARD_SIZE; i++)
     {
@@ -131,6 +134,11 @@ void GameManager::Draw(const int id)
             mBoard[i][j].Draw(id);
         }
     }
+}
+
+void GameManager::DrawTriangle(const int id)
+{
+    mNext->Draw(id);
 }
 
 size_t GameManager::TryFlip(const Vec2i &index, const Panel::Type type)

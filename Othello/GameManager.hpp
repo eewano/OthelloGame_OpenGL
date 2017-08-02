@@ -1,9 +1,10 @@
 #ifndef GameManager_hpp
 #define GameManager_hpp
 
+#include <memory>
 #include "Vec2.hpp"
 #include "Panel.hpp"
-#include <memory>
+#include "Text.hpp"
 
 static const int BOARD_SIZE = 8;
 static constexpr Vec2f BASE_POS = { -0.35f, 0.35f };
@@ -21,7 +22,8 @@ public:
     bool CheckPlayable();
     void SwitchTurn();
     Vec2i GetScore() const;
-    void Draw(const int id);
+    void DrawPanel(const int id);
+    void DrawTriangle(const int id);
     
 private:
     size_t TryFlip(const Vec2i& index, const Panel::Type type);
